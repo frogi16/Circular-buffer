@@ -13,4 +13,8 @@ public:
 	{
 		return 0;
 	}
+
+	void add(double d)
+	{
+	}
 };
