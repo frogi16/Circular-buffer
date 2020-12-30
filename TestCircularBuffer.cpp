@@ -9,3 +9,10 @@ TEST(TestBuffer, ConstructWithSize)
 	ASSERT_EQ(buffer.getAllocatedSize(), 1);
 	ASSERT_EQ(buffer.getSize(), 0);
 }
+
+TEST(TestBuffer, AddElement)
+{
+	CircularBuffer<3> buffer;
+	ASSERT_EQ(buffer.getSize(), 0);
+	buffer.add(3.14);
+}
