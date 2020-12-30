@@ -6,4 +6,5 @@
 TEST(TestBuffer, ConstructWithSize)
 {
 	CircularBuffer<1> buffer;
+	ASSERT_EQ(buffer.getAllocatedSize(), 1);
 }
