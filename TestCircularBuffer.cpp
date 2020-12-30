@@ -15,4 +15,5 @@ TEST(TestBuffer, AddElement)
 	CircularBuffer<3> buffer;
 	ASSERT_EQ(buffer.getSize(), 0);
 	buffer.add(3.14);
+	ASSERT_EQ(buffer.getSize(), 1);
 }
