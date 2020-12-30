@@ -8,4 +8,9 @@ public:
 	{
 		return size;
 	}
+
+	constexpr size_t getSize() const
+	{
+		return 0;
+	}
 };
