@@ -1,7 +1,7 @@
 #include <gtest/gtest.h>
 #include <gmock/gmock.h>
 
-TEST(TestSuite, TestName)
+TEST(TestBuffer, ConstructWithSize)
 {
-
+	CircularBuffer<1> buffer;
 }
