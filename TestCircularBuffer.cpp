@@ -40,3 +40,15 @@ TEST(TestBuffer, RetrieveElementsInOrderOfAdding)
 	for (auto &v : vals)
 		ASSERT_EQ(buffer.pop(), v);
 }
+
+TEST(TestBuffer, AddTooManyElements_shouldNotFail)
+{
+	CircularBuffer<5> buffer;
+	std::array<double, 5> vals;
+	std::iota(vals.begin(), vals.end(), -3);
+
+	for (auto &v : vals)
+		buffer.add(v);
+
+	ASSERT_NO_THROW(buffer.add(0));
+}
