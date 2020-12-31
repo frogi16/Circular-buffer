@@ -4,6 +4,7 @@ template<size_t allocatedSize>
 class CircularBuffer
 {
 	size_t size = 0;
+	double val = 0;
 public:
 	constexpr size_t getAllocatedSize() const
 	{
@@ -17,6 +18,12 @@ public:
 
 	void add(double d)
 	{
+		val = d;
 		++size;
+	}
+
+	double pop() const
+	{
+		return val;
 	}
 };
