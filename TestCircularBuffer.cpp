@@ -17,4 +17,6 @@ TEST(TestBuffer, AddElement)
 	buffer.add(3.14);
 	ASSERT_EQ(buffer.getSize(), 1);
 	ASSERT_DOUBLE_EQ(buffer.pop(), 3.14);
+	ASSERT_EQ(buffer.getSize(), 0);
+	ASSERT_EQ(buffer.getAllocatedSize(), 1);
 }
