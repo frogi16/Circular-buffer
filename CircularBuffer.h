@@ -3,8 +3,9 @@
 template<size_t allocatedSize>
 class CircularBuffer
 {
+	size_t first = 0;
 	size_t size = 0;
-	double val = 0;
+	std::array<double, allocatedSize> vals;
 public:
 	constexpr size_t getAllocatedSize() const
 	{
@@ -18,13 +19,12 @@ public:
 
 	void add(double d)
 	{
-		val = d;
-		++size;
+		vals[size++] = d;
 	}
 
 	double pop()
 	{
 		--size;
-		return val;
+		return vals[first++];
 	}
 };
