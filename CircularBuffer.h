@@ -22,8 +22,9 @@ public:
 		++size;
 	}
 
-	double pop() const
+	double pop()
 	{
+		--size;
 		return val;
 	}
 };
