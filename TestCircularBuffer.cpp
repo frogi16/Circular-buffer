@@ -1,6 +1,9 @@
 #include <gtest/gtest.h>
 #include <gmock/gmock.h>
 
+#include <array>
+#include <numeric>
+
 #include "CircularBuffer.h"
 
 TEST(TestBuffer, ConstructWithSize)
@@ -23,4 +26,17 @@ TEST(TestBuffer, AddAndPopElement)
 	ASSERT_DOUBLE_EQ(buffer.pop(), 3.14);
 	ASSERT_EQ(buffer.getSize(), 0);
 	ASSERT_EQ(buffer.getAllocatedSize(), 3);
+}
+
+TEST(TestBuffer, RetrieveElementsInOrderOfAdding)
+{
+	CircularBuffer<5> buffer;
+	std::array<double, 5> vals;
+	std::iota(vals.begin(), vals.end(), -3);
+
+	for (auto &v : vals)
+		buffer.add(v);
+
+	for (auto &v : vals)
+		ASSERT_EQ(buffer.pop(), v);
 }
