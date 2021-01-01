@@ -46,6 +46,13 @@ TEST_F(CreateAndFillBufferCompletelyTest, RetrieveElementsInOrderOfAdding)
 		ASSERT_EQ(buffer.pop(), v);
 }
 
+TEST_F(CreateAndFillBufferCompletelyTest, RetrieveTooManyElements_shouldThrow)
+{
+	for (auto &v : vals)
+		buffer.pop();
+
+	ASSERT_THROW(buffer.pop(), RetrieveFromEmptyBufferException);
+}
 TEST_F(CreateAndFillBufferCompletelyTest, AddTooManyElements_shouldNotFail)
 {
 	ASSERT_NO_THROW(buffer.add(0));
