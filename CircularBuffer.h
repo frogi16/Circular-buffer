@@ -5,6 +5,7 @@ class CircularBuffer
 {
 	size_t begin = 0;
 	size_t end = 0;
+	bool isFull = false;
 	std::array<double, allocatedSize> vals;
 public:
 	constexpr size_t getAllocatedSize() const
@@ -20,7 +21,13 @@ public:
 	void add(double d)
 	{
 		vals[end] = d;
+		
+		if (isFull)
+			begin = (begin + 1) % allocatedSize;
+
 		end = (end + 1) % allocatedSize;
+
+		isFull = (begin == end);
 	}
 
 	double pop()
