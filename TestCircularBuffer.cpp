@@ -34,8 +34,11 @@ TEST(TestBuffer, RetrieveElementsInOrderOfAdding)
 	std::array<double, 5> vals;
 	std::iota(vals.begin(), vals.end(), -3);
 
-	for (auto &v : vals)
-		buffer.add(v);
+	for (size_t i = 0; i < vals.size(); i++)
+	{
+		buffer.add(vals[i]);
+		ASSERT_EQ(buffer.getSize(), i+1);
+	}
 
 	for (auto &v : vals)
 		ASSERT_EQ(buffer.pop(), v);
