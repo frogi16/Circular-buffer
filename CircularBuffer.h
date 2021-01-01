@@ -1,5 +1,12 @@
 #pragma once
 
+#include <exception>
+
+struct RetrieveFromEmptyBufferException : std::runtime_error
+{
+	using std::runtime_error::runtime_error;
+};
+
 template<size_t allocatedSize>
 class CircularBuffer
 {
@@ -41,6 +48,10 @@ public:
 
 	double pop()
 	{
+		if (!isFull && begin == end)
+			throw RetrieveFromEmptyBufferException("No element left in circular buffer");
+
+		isFull = false;
 		auto &toRet = vals[begin];
 		incrementModuloSize(begin);
 		return toRet;
