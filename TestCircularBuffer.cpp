@@ -12,7 +12,7 @@ using namespace ::testing;
 
 constexpr size_t bufferSize{ 5 };
 
-class CreateAndFillBufferCompletelyTest : public Test
+class CreateAndCompletelyFillBufferOfDoublesTest : public Test
 {
 protected:
 
@@ -38,7 +38,7 @@ protected:
 		EXPECT_EQ(buffer.getAllocatedSize(), bufferSize);
 	}
 
-	CircularBuffer<bufferSize> buffer;
+	CircularBuffer<double, bufferSize> buffer;
 	std::array<double, bufferSize> vals;
 
 	std::random_device rd;
@@ -51,25 +51,25 @@ protected:
 	}
 };
 
-TEST_F(CreateAndFillBufferCompletelyTest, RetrieveElementsInOrderOfAdding)
+TEST_F(CreateAndCompletelyFillBufferOfDoublesTest, RetrieveElementsInOrderOfAdding)
 {
 	for (auto &v : vals)
 		ASSERT_EQ(buffer.pop(), v);
 }
 
-TEST_F(CreateAndFillBufferCompletelyTest, RetrieveTooManyElements_shouldThrow)
+TEST_F(CreateAndCompletelyFillBufferOfDoublesTest, RetrieveTooManyElements_shouldThrow)
 {
 	for (auto &v : vals)
 		buffer.pop();
 
 	ASSERT_THROW(buffer.pop(), RetrieveFromEmptyBufferException);
 }
-TEST_F(CreateAndFillBufferCompletelyTest, AddAdditionalElement_shouldNotFail)
+TEST_F(CreateAndCompletelyFillBufferOfDoublesTest, AddAdditionalElement_shouldNotFail)
 {
 	ASSERT_NO_THROW(buffer.add(0));
 }
 
-TEST_F(CreateAndFillBufferCompletelyTest, AddAdditionalElement_shouldOverwriteOldestAndReturnLast)
+TEST_F(CreateAndCompletelyFillBufferOfDoublesTest, AddAdditionalElement_shouldOverwriteOldestAndReturnLast)
 {
 	buffer.add(0);
 
@@ -79,7 +79,7 @@ TEST_F(CreateAndFillBufferCompletelyTest, AddAdditionalElement_shouldOverwriteOl
 	ASSERT_EQ(buffer.pop(), 0);
 }
 
-TEST_F(CreateAndFillBufferCompletelyTest, AddTooManyElements_shouldOverwriteAllNeededAndReturnInOrderOfAddition)
+TEST_F(CreateAndCompletelyFillBufferOfDoublesTest, AddTooManyElements_shouldOverwriteAllNeededAndReturnInOrderOfAddition)
 {
 	std::vector<double> additionalElements(generateRandomValue(20, 50));
 	std::generate(additionalElements.begin(), additionalElements.end(), [this](){ return generateRandomValue(0, 100) / 3.14f; });
