@@ -7,13 +7,13 @@ struct RetrieveFromEmptyBufferException : std::runtime_error
 	using std::runtime_error::runtime_error;
 };
 
-template<size_t allocatedSize>
+template<typename ValType, size_t allocatedSize>
 class CircularBuffer
 {
 	size_t begin = 0;
 	size_t end = 0;
 	bool isFull = false;
-	std::array<double, allocatedSize> vals;
+	std::array<ValType, allocatedSize> vals;
 
 	void incrementModuloSize(size_t& i) const
 	{
@@ -34,7 +34,7 @@ public:
 			return end >= begin ? end - begin : allocatedSize - begin + end;
 	}
 
-	void add(double val)
+	void add(ValType val)
 	{
 		vals[end] = val;
 		
@@ -46,7 +46,7 @@ public:
 		isFull = (begin == end);
 	}
 
-	double pop()
+	ValType pop()
 	{
 		if (!isFull && begin == end)
 			throw RetrieveFromEmptyBufferException("No element left in circular buffer");
