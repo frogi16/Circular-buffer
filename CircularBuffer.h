@@ -7,6 +7,12 @@ class CircularBuffer
 	size_t end = 0;
 	bool isFull = false;
 	std::array<double, allocatedSize> vals;
+
+	void incrementModuloSize(size_t& i) const
+	{
+		i = (i + 1) % allocatedSize;
+	}
+
 public:
 	constexpr size_t getAllocatedSize() const
 	{
@@ -18,14 +24,14 @@ public:
 		return end >= begin ? end - begin : allocatedSize - begin + end;
 	}
 
-	void add(double d)
+	void add(double val)
 	{
-		vals[end] = d;
+		vals[end] = val;
 		
 		if (isFull)
-			begin = (begin + 1) % allocatedSize;
+			incrementModuloSize(begin);
 
-		end = (end + 1) % allocatedSize;
+		incrementModuloSize(end);
 
 		isFull = (begin == end);
 	}
@@ -33,7 +39,7 @@ public:
 	double pop()
 	{
 		auto &toRet = vals[begin];
-		begin = (begin + 1) % allocatedSize;
+		incrementModuloSize(begin);
 		return toRet;
 	}
 };
