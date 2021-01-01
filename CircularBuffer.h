@@ -21,7 +21,10 @@ public:
 
 	size_t getSize() const
 	{
-		return end >= begin ? end - begin : allocatedSize - begin + end;
+		if (isFull)
+			return allocatedSize;
+		else
+			return end >= begin ? end - begin : allocatedSize - begin + end;
 	}
 
 	void add(double val)
