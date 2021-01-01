@@ -52,3 +52,20 @@ TEST(TestBuffer, AddTooManyElements_shouldNotFail)
 
 	ASSERT_NO_THROW(buffer.add(0));
 }
+
+TEST(TestBuffer, AddTooManyElements_shouldOverwriteOldestAndReturnLast)
+{
+	CircularBuffer<5> buffer;
+	std::array<double, 5> vals;
+	std::iota(vals.begin(), vals.end(), -3);
+
+	for (auto &v : vals)
+		buffer.add(v);
+
+	buffer.add(0);
+
+	for (size_t i = 1; i < vals.size(); i++)
+		ASSERT_EQ(buffer.pop(), vals[i]);
+
+	ASSERT_EQ(buffer.pop(), 0);
+}
