@@ -93,3 +93,15 @@ TEST_F(CreateAndCompletelyFillBufferOfDoublesTest, AddTooManyElements_shouldOver
 
 	EXPECT_EQ(buffer.getSize(), 0);
 }
+
+TEST(ParametrizedBufferTest, UseForStrings_shouldProvideAllFunctionalities)
+{
+	CircularBuffer<std::string, bufferSize> buffer;
+	for (size_t i = 0; i < 33; i++)
+		buffer.add(std::string("Test string" + std::to_string(i)));
+
+	for (size_t i = 28; i < 33; i++)
+		ASSERT_EQ(buffer.pop(), std::string("Test string" + std::to_string(i)));
+
+	EXPECT_EQ(buffer.getSize(), 0);
+}
